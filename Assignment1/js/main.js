@@ -1,4 +1,4 @@
-var width = 500,
+var width = 1000,
   height = 500,
   svg = d3
     .select("#chart")
@@ -21,9 +21,10 @@ function update(myData) {
   // Data parsing, in case you need it
   const parseDate = d3.timeParse("%Y/%m/%d");
   myData.forEach(function (d) {
-    d.date = parseDate(d.date);
+    d.Date_Read = parseDate(d.Date_Read);
+    d.Date_Added = parseDate(d.Date_Added);   
   });
-
+  console.log(d.Date_Read)
   // TODO Update scale domains based on your data variables
   x.domain([0, 1]);
   y.domain([0, 1]);
@@ -61,4 +62,4 @@ function update(myData) {
   marks.exit().remove();
 }
 
-d3.csv("./data/mydata.csv", update);
+d3.csv("./data/GoodReads_PreProcessed_Books.csv", update);
