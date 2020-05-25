@@ -18,15 +18,35 @@ var x = d3.scaleTime().range([0, iwidth]);
 var y = d3.scaleLinear().range([iheight, 0]);
 
 function update(myData) {
-  // Data parsing, in case you need it
-  console.log("I am inside of the function");
+  // Data parsing, in case you need it 
   const parseDate = d3.timeParse("%Y-%m-%d");
-  myData.forEach(function (d) {
-  	// console.log(d.Date_Read);  	
-  	// console.log();
+  myData.forEach(function (d) {  	
     d.Date_Read = parseDate(d.Date_Read);     
   });
 
+  var data = [];
+  for (i = 0; i < myData.length; i++){  	
+  	if (myData[i].Exclusive_Shelf === "read"){  
+  	console.log(i, myData[i].Exclusive_Shelf, myData[i].Date_Read);    
+        var temp = {"Date": myData[i].Date_Read,
+                    "Books": 1};
+        data.push(temp)
+  	}
+  }
+  console.log(data);
+
+  data_monthly = [];
+   for (i = 0; i < data.length; i++){ 
+
+   console.log(data[i].Date);
+   console.log(data[i].Date.getMonth()); 	
+   console.log( data[i].Date.getYear()); 
+   console.log( data[i].Date.getDate());  
+
+  }
+
+
+ 
   // TODO Update scale domains based on your data variables
   x.domain(d3.extent(myData, function(d) { return d.Date_Read; })); 
   y.domain([0, 3]);
@@ -56,22 +76,16 @@ function update(myData) {
  // var marks = gDrawing.selectAll(".mark").data(myData);
   var marks = gDrawing.selectAll("path.pt").data(myData);
   // Update
- // marks;
+ marks;
   //TODO change the attribs/style of your updating mark
 
-  // Newly created elements
-  // marks.enter()
-  //      .append("circle") 
-  //      .attr("class", "mark")
-  //      .attr("cx", x( function (d){ return d.Date_Read; }))
-  //      .attr("cy", y( function (d){ return d.Number_of_Pages; }))
-  //      .attr("r", 10); 
+  // Newly created elements 
     marks.enter()
        .append("path") 
        .attr("class", "pt")
        .attr("d",  d3.symbol().type(d3.symbolCircle))
        .attr("transform", function(d) {
-    return "translate(" + x(d.Date_Read) + "," + y(1) + ")";})
+              return "translate(" + x(d.Date_Read) + "," + y(1) + ")";})
        .attr("fill", "steelblue")
        .attr("stroke", "black"); 
 
@@ -80,7 +94,7 @@ function update(myData) {
   //TODO change the attribs/style of your updating mark
 
   // Elements to remove
- // marks.exit().remove();
+ marks.exit().remove();
 }
 
 d3.csv("./data/GoodReads_PreProcessed_Books.csv", update);

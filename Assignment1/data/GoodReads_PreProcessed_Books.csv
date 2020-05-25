@@ -10,6 +10,7 @@ Book_Id,Title,Author,My_Rating,Average_Rating,Publisher,Number_of_Pages,Original
 865,The Alchemist,Paulo Coelho,4,3.87,HarperCollins,197.0,1988.0,2017-03-15,2019-01-07,,read
 998,The Millionaire Next Door: The Surprising Secrets of America's Wealthy,Thomas J. Stanley,4,4.03,Gallery Books,258.0,1995.0,2017-04-04,2019-01-07,,read
 905092,The Millionaire Mind,Thomas J. Stanley,4,4.19,Andrews McMeel Publishing,416.0,2006.0,2017-06-11,2019-01-07,personal-finance,read
+1274,"Men Are from Mars, Women Are from Venus",John Gray,4,3.55,Harper Paperbacks,368.0,1992.0,2017-07-15,2019-02-06,,read
 25541028,"Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future",Ashlee Vance,5,4.23,Ecco,400.0,2015.0,2018-07-21,2019-01-07,biographies,read
 6708,The Power of Now: A Guide to Spiritual Enlightenment,Eckhart Tolle,4,4.14,New World Library,229.0,1997.0,2018-09-15,2019-01-07,,read
 23848190,Extreme Ownership: How U.S. Navy SEALs Lead and Win,Jocko Willink,5,4.28,St. Martin's Press,320.0,2015.0,2018-12-27,2019-01-07,self-help,read
@@ -52,7 +53,6 @@ Book_Id,Title,Author,My_Rating,Average_Rating,Publisher,Number_of_Pages,Original
 52309,The Autobiography of Benjamin Franklin,Benjamin Franklin,0,3.83,Touchstone,143.0,1791.0,,2019-02-13,to-read,to-read
 968,"The Da Vinci Code (Robert Langdon, #2)",Dan Brown,0,3.85,Anchor,489.0,2003.0,,2019-02-13,to-read,to-read
 22875118,Brain Maker: The Power of Gut Microbes to Heal and Protect Your Brain for Life,David Perlmutter,0,4.02,"Little, Brown Spark",320.0,2015.0,,2019-02-06,to-read,to-read
-1274,"Men Are from Mars, Women Are from Venus",John Gray,4,3.55,Harper Paperbacks,368.0,1992.0,,2019-02-06,,read
 203409,Security Analysis: Principles and Technique,Benjamin Graham,0,4.34,McGraw-Hill Education,770.0,1962.0,,2019-02-06,to-read,to-read
 17851885,I Am Malala: The Story of the Girl Who Stood Up for Education and Was Shot by the Taliban,Malala Yousafzai,0,4.12,"Little, Brown and Company",327.0,2012.0,,2019-02-06,to-read,to-read
 32075671,The Hate U Give,Angie Thomas,0,4.51,Balzer + Bray,464.0,2017.0,,2019-02-06,to-read,to-read
