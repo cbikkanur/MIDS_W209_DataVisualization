@@ -27,9 +27,14 @@ function update(myData) {
   var data = [];
   for (i = 0; i < myData.length; i++){  	
   	if (myData[i].Exclusive_Shelf === "read"){  
-  	console.log(i, myData[i].Exclusive_Shelf, myData[i].Date_Read);    
+  	//console.log(i, myData[i].Exclusive_Shelf, myData[i].Date_Read);    
         var temp = {"Date": myData[i].Date_Read,
-                    "Books": 1};
+                    "Book_Name": myData[i].Title,
+                    "Author": myData[i].Author,
+                    "Average_Rating": myData[i].Average_Rating,
+                    "Number_of_Pages": myData[i].Number_of_Pages      
+                };
+				console.log(temp);
         data.push(temp)
   	}
   }
@@ -38,10 +43,10 @@ function update(myData) {
   data_monthly = [];
    for (i = 0; i < data.length; i++){ 
 
-   console.log(data[i].Date);
-   console.log(data[i].Date.getMonth()); 	
-   console.log( data[i].Date.getYear()); 
-   console.log( data[i].Date.getDate());  
+   // console.log(data[i].Date);
+   // console.log(data[i].Date.getMonth()); 	
+   // console.log( data[i].Date.getYear()); 
+   // console.log( data[i].Date.getDate());  
 
   }
 
