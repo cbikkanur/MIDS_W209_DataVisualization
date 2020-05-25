@@ -1,3 +1,17 @@
+header h1 {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 36px; 
+}
+
+header {
+  background: teal;  
+  height: 84px;
+  line-height: 84px; 
+}
+
+
 body {
   margin: 30px;
   font-family: sans-serif;
@@ -15,8 +29,4 @@ td {
   font-style: italic;
   font-size: 10pt;
   color: #aaa;
-}
-.pt {
-  fill: steelblue;
-  stroke: #000;
 }

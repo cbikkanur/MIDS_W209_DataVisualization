@@ -1,5 +1,5 @@
-var width = 1300,
-  height = 500,
+var width = 1350,
+  height = 450,
   svg = d3
     .select("#chart")
     .append("svg")
@@ -37,18 +37,21 @@ function update(myData) {
     .call(d3.axisBottom(x))
     .append("text")
     .style("fill", "black")
-    .style("font-size", "12pt")
-    .text("xAxis")
+    .style("font-size", "14pt")
+    .text("Time")
     .attr("transform", `translate(${iwidth}, ${-20})`);
 
   gDrawing
     .append("g")
     .call(d3.axisLeft(y).ticks(3))    
     .append("text")
-    .style("fill", "black")
-    .style("font-size", "12pt")
-    .text("yAxis")
-    .attr("transform", `translate(${50}, 0)`);
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)   
+    .attr("dy", "0.91em")
+    .attr("fill", "#000")
+    .text("Number of Books")
+    .style("font-size", "12pt");
+
 
  // var marks = gDrawing.selectAll(".mark").data(myData);
   var marks = gDrawing.selectAll("path.pt").data(myData);
