@@ -20,6 +20,13 @@ body {
 .description {
   max-width: 800px;
 }
+.viz { 
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;  
+}
+
 table,
 td {
   border: 0.5px dashed #333;
