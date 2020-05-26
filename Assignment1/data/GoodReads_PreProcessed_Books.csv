@@ -3,13 +3,14 @@ Book_Id,Title,Author,My_Rating,Average_Rating,Publisher,Number_of_Pages,Original
 4924862,I Will Teach You to Be Rich,Ramit Sethi,4,4.1,Workman Publishing Company,266.0,2009.0,2016-08-10,2019-01-07,personal-finance,read
 4865,How to Win Friends and Influence People,Dale Carnegie,5,4.2,Gallery Books,288.0,1936.0,2016-09-10,2019-01-07,self-help,read
 30186948,Think and Grow Rich,Napoleon Hill,5,4.18,,233.0,1937.0,2016-09-12,2019-01-07,self-help,read
-36072,The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change,Stephen R. Covey,5,4.11,Free Press,372.0,1989.0,2016-10-15,2019-01-07,self-help,read
+36072,The 7 Habits of Highly Effective People,Stephen R. Covey,5,4.11,Free Press,372.0,1989.0,2016-10-15,2019-01-07,self-help,read
 1052,The Richest Man in Babylon,George S. Clason,5,4.26,Berkley Books,194.0,1926.0,2016-11-15,2019-01-07,personal-finance,read
 4866,How to Stop Worrying and Start Living,Dale Carnegie,4,4.13,Gallery Books,358.0,1944.0,2016-11-30,2019-01-07,,read
 106835,The Intelligent Investor,Benjamin Graham,4,4.24,Harper Business,623.0,1949.0,2016-12-10,2019-01-07,personal-finance,read
 865,The Alchemist,Paulo Coelho,4,3.87,HarperCollins,197.0,1988.0,2017-03-15,2019-01-07,,read
-998,The Millionaire Next Door: The Surprising Secrets of America's Wealthy,Thomas J. Stanley,4,4.03,Gallery Books,258.0,1995.0,2017-04-04,2019-01-07,,read
+998,The Millionaire Next Door,Thomas J. Stanley,4,4.03,Gallery Books,258.0,1995.0,2017-04-04,2019-01-07,,read
 905092,The Millionaire Mind,Thomas J. Stanley,4,4.19,Andrews McMeel Publishing,416.0,2006.0,2017-06-11,2019-01-07,personal-finance,read
+1274,"Men Are from Mars, Women Are from Venus",John Gray,4,3.55,Harper Paperbacks,368.0,1992.0,2017-07-15,2019-02-06,,read
 25541028,"Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future",Ashlee Vance,5,4.23,Ecco,400.0,2015.0,2018-07-21,2019-01-07,biographies,read
 6708,The Power of Now: A Guide to Spiritual Enlightenment,Eckhart Tolle,4,4.14,New World Library,229.0,1997.0,2018-09-15,2019-01-07,,read
 23848190,Extreme Ownership: How U.S. Navy SEALs Lead and Win,Jocko Willink,5,4.28,St. Martin's Press,320.0,2015.0,2018-12-27,2019-01-07,self-help,read
@@ -21,7 +22,7 @@ Book_Id,Title,Author,My_Rating,Average_Rating,Publisher,Number_of_Pages,Original
 35133922,Educated,Tara Westover,5,4.47,Random House,334.0,2018.0,2019-03-02,2019-01-07,biographies,read
 38746485,Becoming,Michelle Obama,4,4.55,Crown,426.0,2018.0,2019-03-26,2019-02-15,biographies,read
 32191710,Astrophysics for People in a Hurry,Neil deGrasse Tyson,4,4.09,W. W. Norton  Company,224.0,2017.0,2019-04-17,2019-02-06,,read
-9420697,"The Compound Effect: Jumpstart Your Income, Your Life, Your Success",Darren Hardy,0,4.35,SUCCESS Books,162.0,2010.0,2019-05-02,2019-01-12,self-help,read
+9420697,"The Compound Effect",Darren Hardy,0,4.35,SUCCESS Books,162.0,2010.0,2019-05-02,2019-01-12,self-help,read
 759945,The Magic of Thinking Big,David J. Schwartz,5,4.24,Touchstone,320.0,1959.0,2019-05-08,2019-01-08,self-help,read
 18050143,"Zero to One: Notes on Startups, or How to Build the Future",Peter Thiel,0,4.17,Crown Business,195.0,2014.0,2019-05-23,2019-01-08,personal-finance,read
 10534,The Art of War,Sun Tzu,0,3.97,Shambhala,273.0,-500.0,2019-06-19,2019-06-19,,read
@@ -30,7 +31,7 @@ Book_Id,Title,Author,My_Rating,Average_Rating,Publisher,Number_of_Pages,Original
 12609433,The Power of Habit: Why We Do What We Do in Life and Business,Charles Duhigg,4,4.1,Random House,375.0,2012.0,2019-08-23,2019-02-06,self-help,read
 26156469,Never Split the Difference,Chris Voss,4,4.4,Harper Business,274.0,2016.0,2019-09-12,2019-09-03,,read
 78427,The Total Money Makeover: A Proven Plan for Financial Fitness,Dave Ramsey,4,4.28,Nelson Books,229.0,2003.0,2019-09-15,2019-01-07,personal-finance,read
-10865206,"The Willpower Instinct: How Self-Control Works, Why It Matters, and What You Can Do to Get More of It",Kelly McGonigal,5,4.15,Avery,275.0,2011.0,2019-10-03,2019-02-06,self-help,read
+10865206,"The Willpower Instinct: How Self-Control Works, Why It Matters",Kelly McGonigal,5,4.15,Avery,275.0,2011.0,2019-10-03,2019-02-06,self-help,read
 18054702,The Power of a Praying Husband,Stormie Omartian,4,4.24,Harvest House Publishers,272.0,2001.0,2019-10-20,2019-10-01,,read
 157993,The Little Prince,Antoine de Saint-Exupéry,5,4.31,"Harcourt, Inc.",93.0,1943.0,2019-11-02,2019-10-27,,read
 30289,The Republic,Plato,5,3.94,Penguin Classics,416.0,-380.0,2019-11-18,2019-10-29,,read
@@ -52,7 +53,6 @@ Book_Id,Title,Author,My_Rating,Average_Rating,Publisher,Number_of_Pages,Original
 52309,The Autobiography of Benjamin Franklin,Benjamin Franklin,0,3.83,Touchstone,143.0,1791.0,,2019-02-13,to-read,to-read
 968,"The Da Vinci Code (Robert Langdon, #2)",Dan Brown,0,3.85,Anchor,489.0,2003.0,,2019-02-13,to-read,to-read
 22875118,Brain Maker: The Power of Gut Microbes to Heal and Protect Your Brain for Life,David Perlmutter,0,4.02,"Little, Brown Spark",320.0,2015.0,,2019-02-06,to-read,to-read
-1274,"Men Are from Mars, Women Are from Venus",John Gray,4,3.55,Harper Paperbacks,368.0,1992.0,,2019-02-06,,read
 203409,Security Analysis: Principles and Technique,Benjamin Graham,0,4.34,McGraw-Hill Education,770.0,1962.0,,2019-02-06,to-read,to-read
 17851885,I Am Malala: The Story of the Girl Who Stood Up for Education and Was Shot by the Taliban,Malala Yousafzai,0,4.12,"Little, Brown and Company",327.0,2012.0,,2019-02-06,to-read,to-read
 32075671,The Hate U Give,Angie Thomas,0,4.51,Balzer + Bray,464.0,2017.0,,2019-02-06,to-read,to-read
