@@ -1,5 +1,5 @@
-var width = 1700,
-  height = 450,
+var width = 1400,
+  height = 425,
   svg = d3
     .select("#chart")
     .append("svg")
@@ -37,7 +37,7 @@ function update(myData) {
         data.push(temp)
   	}
   }
-  console.log(data);
+ // console.log(data);
 
   // data_monthly = [];
   //  for (i = 0; i < data.length; i++){ 
@@ -53,7 +53,7 @@ function update(myData) {
  
   // TODO Update scale domains based on your data variables
   x.domain(d3.extent(data, function(d) { return d.Date_Read; })); 
-  y.domain([0, 3]);
+  y.domain([0, d3.max(data, function(d) { return parseInt(d.Number_of_Pages); })]);
 
   gDrawing
     .append("g")
@@ -67,13 +67,13 @@ function update(myData) {
 
   gDrawing
     .append("g")
-    .call(d3.axisLeft(y).ticks(3))    
+    .call(d3.axisLeft(y))//.ticks(5))    
     .append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 6)   
     .attr("dy", "0.91em")
     .attr("fill", "#000")
-    .text("Number of Books")
+    .text("Number of Pages")
     .style("font-size", "12pt");
 
  // var t = "I am big string 12";
@@ -89,8 +89,9 @@ function update(myData) {
        .append("path") 
        .attr("class", "pt")
        .attr("d",  d3.symbol().type(d3.symbolCircle))
+       .attr("d", d3.symbol().size(function(d){return d.Average_Rating * 25}))
        .attr("transform", function(d) {
-              return "translate(" + x(d.Date_Read) + "," + y(1) + ")";})
+              return "translate(" + x(d.Date_Read) + "," + y(d.Number_of_Pages) + ")";})
        .attr("fill", "steelblue")
        .attr("stroke", "black")    
        .on("mouseout",function(d, i) {
@@ -117,18 +118,18 @@ var longestBookName = d3.max(data, function (d){ return d.Title.length;});
 var hoverGroup = gDrawing.append("g").style("visibility","hidden");
 
         hoverGroup.append("rect")
-				  .attr("x",350)
+				  .attr("x",175)
 				  .attr("y",0)
 				  .attr("width",600)
 				  .attr("height",130)
-			 	  .attr("fill","lightgrey")
+			 	  .attr("fill","powderblue")
 			 	  .attr("stroke", "5px");
 
-var hoverText1 = hoverGroup.append("text").attr("x",360).attr("y",20).style("fill", "royalblue").style("font-weight", "bold");
-var hoverText2 = hoverGroup.append("text").attr("x",360).attr("y",45).style("fill", "royalblue");
-var hoverText3 = hoverGroup.append("text").attr("x",360).attr("y",70).style("fill", "royalblue");
-var hoverText4 = hoverGroup.append("text").attr("x",360).attr("y",95).style("fill", "royalblue");
-var hoverText5 = hoverGroup.append("text").attr("x",360).attr("y",120).style("fill", "royalblue");
+var hoverText1 = hoverGroup.append("text").attr("x",180).attr("y",20).style("fill", "royalblue").style("font-weight", "bold");
+var hoverText2 = hoverGroup.append("text").attr("x",180).attr("y",45).style("fill", "royalblue");
+var hoverText3 = hoverGroup.append("text").attr("x",180).attr("y",70).style("fill", "royalblue");
+var hoverText4 = hoverGroup.append("text").attr("x",180).attr("y",95).style("fill", "royalblue");
+var hoverText5 = hoverGroup.append("text").attr("x",180).attr("y",120).style("fill", "royalblue");
 
 
 var hoverImageBox = gDrawing.append("g").style("visibility","hidden");
@@ -142,10 +143,10 @@ var hoverImageBox = gDrawing.append("g").style("visibility","hidden");
 			 	  .attr("stroke", "5px");
 
 var hoverImage =  hoverImageBox.append("image")                               
-                              .attr("x", 1290)
+                              .attr("x", 950)
                               .attr("y", 12)
                               .attr("width", 400)
-                              .attr("height", 385);
+                              .attr("height", 350);
 
 
        // TODO change for the mark you want to use e.g. rect, path, etc
@@ -173,7 +174,7 @@ var imageData = {
 "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future": "ElonMusk",
 "The Power of Now: A Guide to Spiritual Enlightenment": "ThePowerOfNow",
 "Extreme Ownership: How U.S. Navy SEALs Lead and Win": "ExtremeOwnership",
-"The 4-Hour Workweek,Timothy Ferriss": "The4HourWorkWeek",
+"The 4-Hour Workweek": "The4HourWorkWeek",
 "Discipline Equals Freedom: Field Manual": "DisciplineEqualsfreedom",
 "The Quick and Easy Way to effective speaking": "TheQuickAndEasyWayToEffectiveSpeaking",
 "Can't Hurt Me: Master Your Mind and Defy the Odds": "CantHurtMe",
