@@ -1,4 +1,4 @@
-var width = 1350,
+var width = 1700,
   height = 450,
   svg = d3
     .select("#chart")
@@ -7,7 +7,7 @@ var width = 1350,
     .attr("height", height);
 
 var margin = { top: 30, right: 30, bottom: 30, left: 40 },
-  iwidth = width - margin.left - margin.right,
+  iwidth = width - margin.left - margin.right - 350,
   iheight = height - margin.top - margin.bottom;
 
 var gDrawing = svg
@@ -94,14 +94,18 @@ function update(myData) {
        .attr("fill", "steelblue")
        .attr("stroke", "black")    
        .on("mouseout",function(d, i) {
- 					hoverGroup.style("visibility","hidden");})
+ 					hoverGroup.style("visibility","hidden");
+ 				    hoverImageBox.style("visibility","hidden");
+ 				    hoverImage.style("visibility","hidden");})
 	   .on("mouseover",function(d, i) {
   				hoverText1.text("Title:  			 " + d.Title );
   				hoverText2.text("Author:             " + d.Author);
   				hoverText3.text("Read Date:          " + d.Date_Read.toLocaleDateString());
   				hoverText4.text("Goodreads' Rating:  " + d.Average_Rating );
   				hoverText5.text("Number of Pages:    " + Math.floor(d.Number_of_Pages ));
-  				hoverGroup.style("visibility","visible"); }); 
+  				hoverGroup.style("visibility","visible");
+	            hoverImageBox.style("visibility","visible"); 
+	            hoverImage.style("visibility","visible"); }) ; 
 
 var longestBookName = d3.max(data, function (d){ return d.Title.length;});
 
@@ -116,11 +120,29 @@ var hoverGroup = gDrawing.append("g").style("visibility","hidden");
 			 	  .attr("fill","lightgrey")
 			 	  .attr("stroke", "5px");
 
-var hoverText1 = hoverGroup.append("text").attr("x",360).attr("y",20).style("fill", "royalblue").style("font-weight", "bold");
+var hoverText1 = hoverGroup.append("text").attr("x",360).attr("y",20).style("fill", "red").style("font-weight", "bold");
 var hoverText2 = hoverGroup.append("text").attr("x",360).attr("y",45).style("fill", "royalblue");
 var hoverText3 = hoverGroup.append("text").attr("x",360).attr("y",70).style("fill", "royalblue");
 var hoverText4 = hoverGroup.append("text").attr("x",360).attr("y",95).style("fill", "royalblue");
 var hoverText5 = hoverGroup.append("text").attr("x",360).attr("y",120).style("fill", "royalblue");
+
+
+var hoverImageBox = gDrawing.append("g").style("visibility","hidden");
+
+        hoverImageBox.append("rect")
+				  .attr("x",1350)
+				  .attr("y",0)
+				  .attr("width",300)
+				  .attr("height",400)
+			 	  .attr("fill","powderblue")
+			 	  .attr("stroke", "5px");
+
+var hoverImage = hoverImageBox.append("image")
+                              .attr("xlink:href", "https://drive.google.com/open?id=1Uey63XOMQG-wI5Ij87nMCfjQ3m4cvTOO")// "file:///C:/Users/chand/OneDrive/Desktop/W209/MIDS_W209_DataVisualization/Assignment1/js/Becoming.jpg")
+                              .attr("x", 1360)
+                              .attr("y", 0)
+                              .attr("width", 250)
+                              .attr("height", 300);
 
 
        // TODO change for the mark you want to use e.g. rect, path, etc
