@@ -105,7 +105,11 @@ function update(myData) {
   				hoverText5.text("Number of Pages:    " + Math.floor(d.Number_of_Pages ));
   				hoverGroup.style("visibility","visible");
 	            hoverImageBox.style("visibility","visible"); 
-	            hoverImage.style("visibility","visible"); }) ; 
+	            hoverImage.attr("xlink:href", "pictures/" + imageData[d.Title] + ".jpg" ); 
+	            // hoverImage.attr("xlink:href","pictures/Becoming.jpg"); 
+	            hoverImage.style("visibility","visible"); });
+	            
+
 
 var longestBookName = d3.max(data, function (d){ return d.Title.length;});
 
@@ -120,7 +124,7 @@ var hoverGroup = gDrawing.append("g").style("visibility","hidden");
 			 	  .attr("fill","lightgrey")
 			 	  .attr("stroke", "5px");
 
-var hoverText1 = hoverGroup.append("text").attr("x",360).attr("y",20).style("fill", "red").style("font-weight", "bold");
+var hoverText1 = hoverGroup.append("text").attr("x",360).attr("y",20).style("fill", "royalblue").style("font-weight", "bold");
 var hoverText2 = hoverGroup.append("text").attr("x",360).attr("y",45).style("fill", "royalblue");
 var hoverText3 = hoverGroup.append("text").attr("x",360).attr("y",70).style("fill", "royalblue");
 var hoverText4 = hoverGroup.append("text").attr("x",360).attr("y",95).style("fill", "royalblue");
@@ -132,17 +136,16 @@ var hoverImageBox = gDrawing.append("g").style("visibility","hidden");
         hoverImageBox.append("rect")
 				  .attr("x",1350)
 				  .attr("y",0)
-				  .attr("width",300)
-				  .attr("height",400)
-			 	  .attr("fill","powderblue")
+				  .attr("width",280)
+				  .attr("height",410)
+			 	  .attr("fill","white")
 			 	  .attr("stroke", "5px");
 
-var hoverImage = hoverImageBox.append("image")
-                              .attr("xlink:href", "https://drive.google.com/open?id=1Uey63XOMQG-wI5Ij87nMCfjQ3m4cvTOO")// "file:///C:/Users/chand/OneDrive/Desktop/W209/MIDS_W209_DataVisualization/Assignment1/js/Becoming.jpg")
-                              .attr("x", 1360)
-                              .attr("y", 0)
-                              .attr("width", 250)
-                              .attr("height", 300);
+var hoverImage =  hoverImageBox.append("image")                               
+                              .attr("x", 1290)
+                              .attr("y", 12)
+                              .attr("width", 400)
+                              .attr("height", 385);
 
 
        // TODO change for the mark you want to use e.g. rect, path, etc
@@ -153,3 +156,47 @@ var hoverImage = hoverImageBox.append("image")
 }
 
 d3.csv("./data/GoodReads_PreProcessed_Books.csv", update);
+
+var imageData = {
+"Rich Dad, Poor Dad" : "RichDadPoorDad",
+"I Will Teach You to Be Rich": "IWillTeachYouToBeRich",
+"How to Win Friends and Influence People": "HowToWinFriendsAndInfluencePeople",
+"Think and Grow Rich": "ThinkAndGrowRich",
+"The 7 Habits of Highly Effective People": "The7HabitsOfHighlyEffectivePeople",
+"The Richest Man in Babylon": "TheRichestManInBabylon",
+"How to Stop Worrying and Start Living": "HowToStopWorryingAndStartLiving",
+"The Intelligent Investor": "TheIntelligentInvestor",
+"The Alchemist": "TheAlchemist",
+"The Millionaire Next Door": "TheMillionaireNextDoor",
+"The Millionaire Mind": "TheMillionaireMind",
+"Men Are from Mars, Women Are from Venus": "MenAreFromMarsWomenAreFromVenus",
+"Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future": "ElonMusk",
+"The Power of Now: A Guide to Spiritual Enlightenment": "ThePowerOfNow",
+"Extreme Ownership: How U.S. Navy SEALs Lead and Win": "ExtremeOwnership",
+"The 4-Hour Workweek,Timothy Ferriss": "The4HourWorkWeek",
+"Discipline Equals Freedom: Field Manual": "DisciplineEqualsfreedom",
+"The Quick and Easy Way to effective speaking": "TheQuickAndEasyWayToEffectiveSpeaking",
+"Can't Hurt Me: Master Your Mind and Defy the Odds": "CantHurtMe",
+"Man's Search for Meaning": "MansSearchForMeaning",
+"Educated": "Educated",
+"Becoming": "Becoming",
+"Astrophysics for People in a Hurry": "AstroPhysicsForPeopleInAHurry",
+"The Compound Effect": "TheCompoundEffect",
+"The Magic of Thinking Big": "TheMagicOfThinkingBig",
+"Zero to One: Notes on Startups, or How to Build the Future": "ZeroToOne",
+"The Art of War": "TheArtOfWar",
+"Directional Thinking: 10 Steps to Positive Thinking": "DirectionalThinking",
+"Living with a SEAL: 31 Days Training with the Toughest Man on the Planet": "LivingWithASeal",
+"The Power of Habit: Why We Do What We Do in Life and Business": "ThePowerOfHabit",
+"Never Split the Difference": "NeverSplitTheDifference",
+"The Total Money Makeover: A Proven Plan for Financial Fitness": "TotalMoneyMakeover",
+"The Willpower Instinct: How Self-Control Works, Why It Matters": "TheWillPowerInstinct",
+"The Power of a Praying Husband": "ThePowerOfAPrayingHusband",
+"The Little Prince": "TheLittlePrince",
+"The Republic": "TheRepublic",
+"How to Lie with Statistics": "HowToLieWithStatistics",
+"A New Earth: Awakening to Your Life's Purpose": "ANewEarth",
+"Outliers: The Story of Success": "Outliers",
+"Bhagavad-Gita As It Is": "Bhagavad_gita",
+"Autobiography of a Yogi": "Autobiography_of_a_yogi"
+};
