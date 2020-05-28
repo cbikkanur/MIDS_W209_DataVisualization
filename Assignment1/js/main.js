@@ -216,28 +216,42 @@ gDrawing2.selectAll("rect")
     .attr("y", function (d) { return y3(d.count); } )
     .attr("height", function (d) { return iheight - y3(d.count); } )
     .attr("width", 15 )
-    .style("fill", "lightseagreen") //.style("fill", "teal") //#69b3a2
-    .style("opacity", 0.95);
-
-gDrawing2.selectAll("g")
-    .data(data_monthly)
-    .enter()
-    .append("g")  
-    .attr("transform", "translate(0,0)")
-    .append("text")
-    .text(function (d) { return d.count; } )
-    .attr("x", function (d) { return x3(d.date) + 3 ; } )
-    .attr("y", function (d) { return y3(d.count) + 15; } )
-    .style("fill", "black")
-    .style("font-weight", "bold")
-    .style("font-size", "14px");
+    .style("fill", "forestgreen") //.style("fill", "teal") //#69b3a2
+    .style("opacity", 0.75)
+   
 
 
+//     .on("mouseout",function(d, i) {
+//  					hoverGroup3.style("visibility","hidden");
+//  				    })
+// 	   .on("mouseover",function(d, i) {	   	      
+//   				hoverGroup3.attr("x", x3(d.date));
+//   				hoverGroup3.attr("y", y3(d.count));
+//   				hoverGroup3.attr("height", iheight - y3(d.count));
+//   				hoverGroup3.attr("width", 15 )
+//   				hoverGroup3.style("visibility","visible");
+//   			});
+	            
 
 
+// var hoverGroup3 = gDrawing2.append("g").style("visibility","hidden");
 
+//         hoverGroup3.append("rect")
+//                   .attr("transform", `translate(0,0)`)			 	  
+//                   .attr("fill","rgb(100,100,100)");
 
-
+// gDrawing2.selectAll("g")
+//     .data(data_monthly)
+//     .enter()
+//     .append("g")  
+//     .attr("transform", "translate(0,0)")
+//     .append("text")
+//     .text(function (d) { return d.count; } )
+//     .attr("x", function (d) { return x3(d.date) + 3 ; } )
+//     .attr("y", function (d) { return y3(d.count) + 15; } )
+//     .style("fill", "black")
+//     .style("font-weight", "bold")
+//     .style("font-size", "14px");
 
 
 
