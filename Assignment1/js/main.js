@@ -1,7 +1,7 @@
 var width = 1400,
   height = 425,
   svg = d3
-    .select("#chart")
+    .select("#chart1")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -16,6 +16,10 @@ var gDrawing = svg
 
 var x = d3.scaleTime().range([0, iwidth]);
 var y = d3.scaleLinear().range([iheight, 0]);
+
+
+/////////////////////////////// Bar Chart ///////////////////////////////////
+
 
 function update(myData) {
   // Data parsing, in case you need it 
@@ -37,6 +41,10 @@ function update(myData) {
         data.push(temp)
   	}
   }
+
+  
+
+
  // console.log(data);
 
   // data_monthly = [];
@@ -122,14 +130,14 @@ var hoverGroup = gDrawing.append("g").style("visibility","hidden");
 				  .attr("y",0)
 				  .attr("width",600)
 				  .attr("height",130)
-			 	  .attr("fill","powderblue")
+			 	  .attr("fill","teal")
 			 	  .attr("stroke", "5px");
 
-var hoverText1 = hoverGroup.append("text").attr("x",180).attr("y",20).style("fill", "royalblue").style("font-weight", "bold");
-var hoverText2 = hoverGroup.append("text").attr("x",180).attr("y",45).style("fill", "royalblue");
-var hoverText3 = hoverGroup.append("text").attr("x",180).attr("y",70).style("fill", "royalblue");
-var hoverText4 = hoverGroup.append("text").attr("x",180).attr("y",95).style("fill", "royalblue");
-var hoverText5 = hoverGroup.append("text").attr("x",180).attr("y",120).style("fill", "royalblue");
+var hoverText1 = hoverGroup.append("text").attr("x",180).attr("y",20).style("fill", "white").style("font-weight", "bold");
+var hoverText2 = hoverGroup.append("text").attr("x",180).attr("y",45).style("fill", "white");
+var hoverText3 = hoverGroup.append("text").attr("x",180).attr("y",70).style("fill", "white");
+var hoverText4 = hoverGroup.append("text").attr("x",180).attr("y",95).style("fill", "white");
+var hoverText5 = hoverGroup.append("text").attr("x",180).attr("y",120).style("fill", "white");
 
 
 var hoverImageBox = gDrawing.append("g").style("visibility","hidden");
@@ -154,7 +162,108 @@ var hoverImage =  hoverImageBox.append("image")
 
   // Elements to remove
  marks.exit().remove();
+
+//////////////////////////////////////// Bar Chart ///////////////////////////////////////
+
+var width2 = 850,
+  height2 = 500,
+  barWidth = 100,
+  svg2 = d3
+    .select("#chart2")
+    .append("svg")
+    .attr("width", width2)
+    .attr("height", height2);
+
+var margin2 = { top: 30, right: 30, bottom: 30, left: 40 },
+  iwidth2 = width2 - margin2.left - margin2.right,
+  iheight2 = height2 - margin2.top - margin2.bottom;
+
+var bars = svg2
+  .append("g")
+  .attr("transform", `translate(${margin2.left}, ${margin2.top})`);
+
+
+ data_read_cat_list = [  {"category": "Read", "number": 0},  {"category": "Reading", "number": 0},  {"category": "To_Read", "number": 0} ];
+
+    for (i = 0; i < myData.length; i++){  	
+  	 if (myData[i].Exclusive_Shelf === "read"){  
+  	    data_read_cat_list[0].number += 1;
+  	 }else if (myData[i].Exclusive_Shelf === "currently-reading"){  
+  	      data_read_cat_list[1].number += 1;
+  	 }else if (myData[i].Exclusive_Shelf === "to-read"){  
+  	      data_read_cat_list[2].number += 1;
+  	}
+
+  }
+   console.log(data_read_cat_list);
+
+  var x2 = d3.scaleBand() // from https://www.d3-graph-gallery.com/graph/custom_axis.html
+    .domain(["Read", "Currently Reading", "To Read"])       
+    .range([0, 780])                       
+    .padding([0.8]);
+
+  var y2 = d3.scaleLinear()
+             .range([0, iheight2])
+             .domain([0, d3.max(data_read_cat_list, function(d) { return parseInt(d.number); })]);
+
+
+
+cat = ["Read", "Currently Reading", "To Read"];
+
+bars.selectAll("rect")
+    .data(data_read_cat_list)
+    .enter()
+    .append("rect")
+    .attr("x", function (d, i){ return x2(cat[i]) - 20; } )
+    .attr("y", function (d) { return iheight2 -  y2(d.number); } )
+    .attr("height", function (d) { return y2(d.number); } )
+    .attr("width", 2 * x2.bandwidth() )
+    .style("fill", "lightseagreen") //.style("fill", "teal") //#69b3a2
+    .style("opacity", 0.95);
+
+bars.selectAll("g")
+    .data(data_read_cat_list)
+    .enter()
+    .append("g")  
+    .attr("transform", `translate(0,0)`)
+    .append("text")
+    .text(function (d) { return d.number; } )
+    .attr("x", function (d, i){ return x2(cat[i]) + 12 ; } )
+    .attr("y", function (d) { return iheight2 -  y2(d.number) + 25; } )
+    .style("fill", "black")
+    .style("font-weight", "bold")
+    .style("font-size", "16px");
+
+
+ bars
+    .append("g")
+    .attr("transform", `translate(0,${iheight2})`)
+    .call(d3.axisBottom(x2))
+    .append("text")
+    .style("fill", "black")
+    .style("font-size", "12pt")
+    .text("Category")
+    .attr("transform", `translate(${iwidth2 - 10}, ${-20})`);
+
+ // bars
+ //    .append("g")
+ //    .call(d3.axisLeft(y2))//.ticks(5))    
+ //    .append("text")
+ //    .attr("transform", "rotate(-90)")
+ //    .attr("y", 6)   
+ //    .attr("dy", "0.91em")
+ //    .attr("fill", "#000")
+ //    .text("# of Books")
+ //    .style("font-size", "12pt");
+
+
 }
+
+
+
+
+
+
 
 d3.csv("./data/GoodReads_PreProcessed_Books.csv", update);
 
