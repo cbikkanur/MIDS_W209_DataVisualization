@@ -45,20 +45,9 @@ function update(myData) {
   
 
 
- // console.log(data);
+ console.log(data);
 
-  // data_monthly = [];
-  //  for (i = 0; i < data.length; i++){ 
-
-  //  // console.log(data[i].Date);
-  //  // console.log(data[i].Date.getMonth()); 	
-  //  // console.log( data[i].Date.getYear()); 
-  //  // console.log( data[i].Date.getDate());  
-
-  // }
-
-
- 
+  
   // TODO Update scale domains based on your data variables
   x.domain(d3.extent(data, function(d) { return d.Date_Read; })); 
   y.domain([0, d3.max(data, function(d) { return parseInt(d.Number_of_Pages); })]);
@@ -81,12 +70,9 @@ function update(myData) {
     .attr("y", 6)   
     .attr("dy", "0.91em")
     .attr("fill", "#000")
-    .text("Number of Pages")
+    .text("# of Pages")
     .style("font-size", "12pt");
 
- // var t = "I am big string 12";
- // console.log(t.length);
- // var marks = gDrawing.selectAll(".mark").data(myData);
   var marks = gDrawing.selectAll("path.pt").data(data);
   // Update
  marks;
@@ -162,14 +148,120 @@ var hoverImage =  hoverImageBox.append("image")
 
   // Elements to remove
  marks.exit().remove();
+//////////////////////////////////////// Monthly Chart ///////////////////////////////////////
 
-//////////////////////////////////////// Bar Chart ///////////////////////////////////////
+  svg3 = d3.select("#chart2")
+           .append("svg")
+           .attr("width", width)
+           .attr("height", height);
+
+var gDrawing2 = svg3.append("g")
+                    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+data_monthly = [];
+var temp_year = data[0].Date_Read.getYear();
+var temp_month = data[0].Date_Read.getMonth();
+var temp_count = 0;
+
+for (i = 0; i < data.length; i++) { 
+    //console.log("iteration: " , i, data[i].Date_Read.getMonth() ,  data[i].Date_Read.getYear()) ;  
+	if (temp_year === data[i].Date_Read.getYear() && temp_month === data[i].Date_Read.getMonth()){
+		temp_count += 1;
+		temp_month = data[i].Date_Read.getMonth();
+		temp_year = data[i].Date_Read.getYear();		
+	}else {
+		data_monthly.push({"date": new Date(temp_year + 1900, temp_month, 1), "count": temp_count});				
+		temp_month = data[i].Date_Read.getMonth();
+		temp_year = data[i].Date_Read.getYear();
+		var temp_count = 1;
+	}
+
+}
+data_monthly.push({"date": new Date(temp_year + 1900, temp_month, 1), "count": temp_count});
+console.log(data_monthly);
+
+
+var x3 = d3.scaleTime().range([0, iwidth]);
+var y3 = d3.scaleLinear().range([iheight, 0]);
+
+x3.domain(d3.extent(data_monthly, function(d) { return d.date; })); 
+y3.domain([0, d3.max(data_monthly, function(d) { return parseInt(d.count); })]);
+// console.log(y3(0), y3(1), y3(2), y3(3), iheight);
+
+gDrawing2
+    .append("g")
+    .attr("transform", `translate(0,${iheight})`)
+    .call(d3.axisBottom(x3))
+    .append("text")
+    .style("fill", "black")
+    .style("font-size", "14pt")
+    .text("Time")
+    .attr("transform", `translate(${iwidth + 40}, ${-20})`);
+
+  gDrawing2
+    .append("g")    
+    .call(d3.axisLeft(y3).ticks(3))    
+    .append("text")
+    .attr("transform", "rotate(-90)")     
+    .attr("dy", "0.91em")
+    .attr("fill", "#000")
+    .text("# of Books")
+    .style("font-size", "12pt");
+
+gDrawing2.selectAll("rect")
+    .data(data_monthly)
+    .enter()
+    .append("rect")
+    .attr("x", function (d, i){ return x3(d.date) ; } )
+    .attr("y", function (d) { return y3(d.count); } )
+    .attr("height", function (d) { return iheight - y3(d.count); } )
+    .attr("width", 15 )
+    .style("fill", "forestgreen") //.style("fill", "teal") //#69b3a2
+    .style("opacity", 0.75)
+   
+
+
+//     .on("mouseout",function(d, i) {
+//  					hoverGroup3.style("visibility","hidden");
+//  				    })
+// 	   .on("mouseover",function(d, i) {	   	      
+//   				hoverGroup3.attr("x", x3(d.date));
+//   				hoverGroup3.attr("y", y3(d.count));
+//   				hoverGroup3.attr("height", iheight - y3(d.count));
+//   				hoverGroup3.attr("width", 15 )
+//   				hoverGroup3.style("visibility","visible");
+//   			});
+	            
+
+
+// var hoverGroup3 = gDrawing2.append("g").style("visibility","hidden");
+
+//         hoverGroup3.append("rect")
+//                   .attr("transform", `translate(0,0)`)			 	  
+//                   .attr("fill","rgb(100,100,100)");
+
+// gDrawing2.selectAll("g")
+//     .data(data_monthly)
+//     .enter()
+//     .append("g")  
+//     .attr("transform", "translate(0,0)")
+//     .append("text")
+//     .text(function (d) { return d.count; } )
+//     .attr("x", function (d) { return x3(d.date) + 3 ; } )
+//     .attr("y", function (d) { return y3(d.count) + 15; } )
+//     .style("fill", "black")
+//     .style("font-weight", "bold")
+//     .style("font-size", "14px");
+
+
+
+//////////////////////////////////////// Category Chart ///////////////////////////////////////
 
 var width2 = 850,
   height2 = 500,
   barWidth = 100,
   svg2 = d3
-    .select("#chart2")
+    .select("#chart3")
     .append("svg")
     .attr("width", width2)
     .attr("height", height2);
@@ -195,8 +287,7 @@ var bars = svg2
   	}
 
   }
-   console.log(data_read_cat_list);
-
+ 
   var x2 = d3.scaleBand() // from https://www.d3-graph-gallery.com/graph/custom_axis.html
     .domain(["Read", "Currently Reading", "To Read"])       
     .range([0, 780])                       
