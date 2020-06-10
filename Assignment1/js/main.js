@@ -88,11 +88,13 @@ function update(myData) {
               return "translate(" + x(d.Date_Read) + "," + y(d.Number_of_Pages) + ")";})
        .attr("fill", "steelblue")
        .attr("stroke", "black")    
-       .on("mouseout",function(d, i) {
+       .on("mouseout",function(d, i) {       	            
  					hoverGroup.style("visibility","hidden");
  				    hoverImageBox.style("visibility","hidden");
  				    hoverImage.style("visibility","hidden");})
 	   .on("mouseover",function(d, i) {
+	   	        //.transition()
+	   	        //.duration(250) 
   				hoverText1.text("Title:  			 " + d.Title );
   				hoverText2.text("Author:             " + d.Author);
   				hoverText3.text("Read Date:          " + d.Date_Read.toLocaleDateString());
@@ -178,7 +180,7 @@ for (i = 0; i < data.length; i++) {
 
 }
 data_monthly.push({"date": new Date(temp_year + 1900, temp_month, 1), "count": temp_count});
-console.log(data_monthly);
+// console.log(data_monthly);
 
 
 var x3 = d3.scaleTime().range([0, iwidth]);
@@ -217,7 +219,21 @@ gDrawing2.selectAll("rect")
     .attr("height", function (d) { return iheight - y3(d.count); } )
     .attr("width", 15 )
     .style("fill", "forestgreen") //.style("fill", "teal") //#69b3a2
-    .style("opacity", 0.75)
+    .style("opacity", 0.75)   
+    .on("mouseover", function() {    	   
+			d3.select(this)
+			  .style("fill", "red");
+			   })
+     .on("mouseout", function() {
+				   d3.select(this)
+				   		.transition()
+				   		.duration(200)
+						.style("fill", "forestgreen");
+			   })
+      .append("title")
+      .text(function(d) { 
+          return d.count;   
+      }); 
    
 
 
@@ -261,7 +277,7 @@ var width2 = 850,
   height2 = 500,
   barWidth = 100,
   svg2 = d3
-    .select("#chart3")
+    .select("#chart4")
     .append("svg")
     .attr("width", width2)
     .attr("height", height2);
@@ -310,7 +326,21 @@ bars.selectAll("rect")
     .attr("height", function (d) { return y2(d.number); } )
     .attr("width", 2 * x2.bandwidth() )
     .style("fill", "lightseagreen") //.style("fill", "teal") //#69b3a2
-    .style("opacity", 0.95);
+    .style("opacity", 0.95)
+    .on("mouseover", function() {    	   
+			d3.select(this)
+			  .style("fill", "red");
+			   })
+    .on("mouseout", function() {
+				   d3.select(this)
+				   		.transition()
+				   		.duration(850)
+						.style("fill", "forestgreen");
+			   })
+     .append("title")
+     .text(function(d) { 
+          return d.number;   
+      });
 
 bars.selectAll("g")
     .data(data_read_cat_list)
