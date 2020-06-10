@@ -261,7 +261,7 @@ var width2 = 850,
   height2 = 500,
   barWidth = 100,
   svg2 = d3
-    .select("#chart3")
+    .select("#chart4")
     .append("svg")
     .attr("width", width2)
     .attr("height", height2);
