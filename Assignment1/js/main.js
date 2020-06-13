@@ -48,7 +48,7 @@ function update(myData) {
  console.log(data);
 
   
-  // TODO Update scale domains based on your data variables
+  ////////////////////////////////////// Viz1: Interactive Chart //////////////////////////////////
   x.domain(d3.extent(data, function(d) { return d.Date_Read; })); 
   y.domain([0, d3.max(data, function(d) { return parseInt(d.Number_of_Pages); })]);
 
@@ -83,18 +83,23 @@ function update(myData) {
        .append("path") 
        .attr("class", "pt")
        .attr("d",  d3.symbol().type(d3.symbolCircle))
-       .attr("d", d3.symbol().size(function(d){return d.Average_Rating * 25}))
+       .attr("d", d3.symbol().size(100))// function(d){return d.Average_Rating * 25}))
        .attr("transform", function(d) {
               return "translate(" + x(d.Date_Read) + "," + y(d.Number_of_Pages) + ")";})
        .attr("fill", "steelblue")
        .attr("stroke", "black")    
-       .on("mouseout",function(d, i) {       	            
+       .on("mouseout",function(d, i) { 
+                    d3.select(this).transition()
+                                   .duration(500)
+                                   .attr("fill", "steelblue")
+	                               .attr("d", d3.symbol().size(100));      	            
  					hoverGroup.style("visibility","hidden");
  				    hoverImageBox.style("visibility","hidden");
  				    hoverImage.style("visibility","hidden");})
-	   .on("mouseover",function(d, i) {
-	   	        //.transition()
-	   	        //.duration(250) 
+	   .on("mouseover",function(d, i) {	 
+	            d3.select(this).attr("fill", "red")
+	                           .attr("d", d3.symbol().size(300));
+
   				hoverText1.text("Title:  			 " + d.Title );
   				hoverText2.text("Author:             " + d.Author);
   				hoverText3.text("Read Date:          " + d.Date_Read.toLocaleDateString());
@@ -150,7 +155,7 @@ var hoverImage =  hoverImageBox.append("image")
 
   // Elements to remove
  marks.exit().remove();
-//////////////////////////////////////// Monthly Chart ///////////////////////////////////////
+//////////////////////////////////////// Viz2: Monthly Chart ///////////////////////////////////////
 
   svg3 = d3.select("#chart2")
            .append("svg")
@@ -207,8 +212,9 @@ gDrawing2
     .attr("transform", "rotate(-90)")     
     .attr("dy", "0.91em")
     .attr("fill", "#000")
-    .text("# of Books")
+    .text("# Books/Month")
     .style("font-size", "12pt");
+    //.attr("transform", `translate(${0}, ${-20})`);
 
 gDrawing2.selectAll("rect")
     .data(data_monthly)
@@ -232,46 +238,93 @@ gDrawing2.selectAll("rect")
 			   })
       .append("title")
       .text(function(d) { 
-          return d.count;   
+          return d.date.toLocaleString('default', { month: 'long' })//getMonth();   
       }); 
    
+//////////////////////////////////////// Viz3: Sort Chart ///////////////////////////////////////////
 
 
-//     .on("mouseout",function(d, i) {
-//  					hoverGroup3.style("visibility","hidden");
-//  				    })
-// 	   .on("mouseover",function(d, i) {	   	      
-//   				hoverGroup3.attr("x", x3(d.date));
-//   				hoverGroup3.attr("y", y3(d.count));
-//   				hoverGroup3.attr("height", iheight - y3(d.count));
-//   				hoverGroup3.attr("width", 15 )
-//   				hoverGroup3.style("visibility","visible");
-//   			});
-	            
+var width4 = 1400,
+    height4 = 500,
+    svg4 = d3.select("#chart3")
+           .append("svg")
+           .attr("width", width4)
+           .attr("height", height4);
+
+var margin4 = { top: 30, right: 30, bottom: 30, left: 40 },
+    iwidth4 = width4 - margin4.left - margin4.right,
+    iheight4 = height4 - margin4.top - margin4.bottom;
+
+var bars4 = svg4.append("g")
+               .attr("transform", `translate(${margin4.left}, ${margin4.top})`);
 
 
-// var hoverGroup3 = gDrawing2.append("g").style("visibility","hidden");
+var books_data = [];
+  for (i = 0; i < data.length; i++) { 
+            books_data.push(data[i].Title) ;
+            }
 
-//         hoverGroup3.append("rect")
-//                   .attr("transform", `translate(0,0)`)			 	  
-//                   .attr("fill","rgb(100,100,100)");
+  console.log(books_data)                      
 
-// gDrawing2.selectAll("g")
-//     .data(data_monthly)
-//     .enter()
-//     .append("g")  
-//     .attr("transform", "translate(0,0)")
-//     .append("text")
-//     .text(function (d) { return d.count; } )
-//     .attr("x", function (d) { return x3(d.date) + 3 ; } )
-//     .attr("y", function (d) { return y3(d.count) + 15; } )
-//     .style("fill", "black")
-//     .style("font-weight", "bold")
-//     .style("font-size", "14px");
+  var x4 = d3.scaleBand() // from https://www.d3-graph-gallery.com/graph/custom_axis.html
+             .domain(books_data)       
+             .range([0, 1300])                       
+             .padding([0.8]);
+
+  var y4_num_pages = d3.scaleLinear()
+                       .range([iheight4, 0])
+                       .domain([0, d3.max(data, function(d) { return parseInt(d.Number_of_Pages); })]);
 
 
+bars4.selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function (d, i){ console.log(i);
+    	                        console.log(x4(data[i].Title));
+    	                        return x4(data[i].Title) - 10 ; } )
+    .attr("y", function (d) { return  y4_num_pages(d.Number_of_Pages); } )
+    .attr("height", function (d) { return y4_num_pages(0) - y4_num_pages(d.Number_of_Pages); } )
+    .attr("width",  4 * x4.bandwidth() )
+    .style("fill", "darkgreen") //.style("fill", "teal") //#69b3a2
+    .style("opacity", 0.65)
+    .on("mouseover", function() {    	   
+			d3.select(this)
+			  .style("fill", "red");
+			   })
+    .on("mouseout", function() {
+				   d3.select(this)
+				   		.transition()
+				   		.duration(450)
+						.style("fill", "darkgreen");
+			   })
+     .append("title")
+     .text(function(d) { 
+          return d.Title;   
+      });
 
-//////////////////////////////////////// Category Chart ///////////////////////////////////////
+
+bars4.append("g")    
+    .call(d3.axisLeft(y4_num_pages).ticks(4))    
+    .append("text")
+    .attr("transform", "rotate(-90)")     
+    .attr("dy", "0.91em")
+    .attr("fill", "#000")
+    .text("# of Pages")
+    .style("font-size", "12pt");
+
+bars4.append("g")
+    .attr("transform", `translate(0,${iheight4})`)
+    .call(d3.axisBottom(x4).tickFormat(""))
+    .append("text")
+    .style("fill", "black")
+    .style("font-size", "12pt")
+    .text("Books")
+    .attr("transform", `translate(${iwidth4 - 10}, ${-20})`);
+
+
+
+//////////////////////////////////////// Viz4: Category Chart ///////////////////////////////////////
 
 var width2 = 850,
   height2 = 500,
@@ -334,8 +387,8 @@ bars.selectAll("rect")
     .on("mouseout", function() {
 				   d3.select(this)
 				   		.transition()
-				   		.duration(850)
-						.style("fill", "forestgreen");
+				   		.duration(450)
+						.style("fill", "lightseagreen");
 			   })
      .append("title")
      .text(function(d) { 
