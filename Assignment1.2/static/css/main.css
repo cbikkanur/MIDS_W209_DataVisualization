@@ -12,6 +12,12 @@ header {
 }
 
 
+
+.center{
+	text-align: center;
+  font-weight: bold;	
+}
+
 body {
   margin: 30px;
   font-family: sans-serif;

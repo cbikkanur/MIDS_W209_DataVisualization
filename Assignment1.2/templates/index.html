@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<title>Books - Visualization</title>
 
-		<link rel="stylesheet" href="../static/css/main.css" />
+		<link rel="stylesheet" href="./static/css/main.css" />
 	</head>
 	<body>
 		<header>
@@ -50,29 +50,26 @@
 			</div> 
 			<div class="description">	 
 				<br/> 
-       Below visualization illustrates the books with number of pages. Use the <strong>Radio</strong> buttons for sorting.
+       Below visualization illustrates the books with <strong># of Pages</strong> and <strong>Rating</strong>. Use the <strong>Radio</strong> buttons for sorting.
 			</div> 
 <br/> 
-<br/> 	
-<p id = "rating">Click Here</p>
-	 
-        <!--div class="sortclass">
-          <span>Sort Bars by:             </span>
+  <p class = "center">Choose Bars for:</p>
+ <div class="selectionclass">         
+          <form style='text-align:center'>
+          <input type="radio" id="Page" name="chooseorder"  value="Page" checked>
+          <label for="Page"># of Pages</label>
+          <input type="radio" name="chooseorder" id="Rating" value="Rating">
+          <label for="Rating">Rating</label>
+		  </form>
+        </div>
+		
+		<div id="chart3"></div>
+		 <p class = "center">Sort Bars by:</p>
+		<div class="sortclass">        
           <form style='text-align:center'>
           <input type="radio" name="sortorder" id="Ascending" value="Ascending">
           <label for="Ascending">Ascending</label>
           <input type="radio" name="sortorder" id="Descending" value="Descending">
-          <label for="Descending">Descending</label>
-		  </form>
-        </div-->
-  
-		<div id="chart3"></div>
-		<div class="sortclass">
-          <span>Sort Bars by:             </span>
-          <form style='text-align:center'>
-          <input type="radio" name="sortorder" id="Ascending" value="Ascending" unchecked>
-          <label for="Ascending">Ascending</label>
-          <input type="radio" name="sortorder" id="Descending" value="Descending" unchecked>
           <label for="Descending">Descending</label>
 		  </form>
         </div>
@@ -114,7 +111,7 @@
 			<ul>
 				<li>In visualization 1, you can mouseover the data point to see more details about each book such as title, author, rating and the date I completed reading it. </li>
 				<li>In visualization 2, you can get the insights into how many books I read in each month over the years. </li>
-				<li>In visualization 3, you can sort the books by 1) Number of Pages 2) GoodRead's Rating for the book.</li>
+				<li>In visualization 3, you can choose and sort the books by 1) Number of Pages 2) GoodRead's Rating for the book.</li>
 			    <li>In visualization 4, you can get a glimpse of total number books I have read so far and the number of books I am currently reading and will be reading. </li>
 			</ul>  	
 			<br />
@@ -161,6 +158,6 @@
 		</table>
 
 		<script src="https://d3js.org/d3.v4.js"></script>
-		<script src="../static/js/main.js"></script>
+		<script src="./static/js/main.js"></script>
 	</body>
 </html>
