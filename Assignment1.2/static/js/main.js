@@ -45,7 +45,7 @@ function update(myData) {
   
 
 
- console.log(data);
+ //console.log(data);
 
   
   ////////////////////////////////////// Viz1: Interactive Chart //////////////////////////////////
@@ -267,25 +267,35 @@ var books_data = [];
   console.log(books_data)                      
 
   var x4 = d3.scaleBand() // from https://www.d3-graph-gallery.com/graph/custom_axis.html
-             .domain(books_data)       
-             .range([0, 1300])                       
-             .padding([0.8]);
+             .domain(d3.range(books_data.length))
+             //.domain(books_data)       
+            // .range([0, 1300]) 
+             //.round(true)                      
+             //.padding([0.8])
+             .rangeRound([0, iwidth4])
+			 .paddingInner(0.05);;
 
   var y4_num_pages = d3.scaleLinear()
                        .range([iheight4, 0])
                        .domain([0, d3.max(data, function(d) { return parseInt(d.Number_of_Pages); })]);
 
+  var y4_rating = d3.scaleLinear()
+                       .range([iheight4, 0])
+                       .domain([0, d3.max(data, function(d) { return parseInt(d.Average_Rating); })]);                    
 
-bars4.selectAll("rect")
+
+bars4.selectAll("rect.bars4")
     .data(data)
     .enter()
     .append("rect")
-    .attr("x", function (d, i){ console.log(i);
-    	                        console.log(x4(data[i].Title));
-    	                        return x4(data[i].Title) - 10 ; } )
+    .attr("class", "bars4")   
+    .attr("x", function (d, i){ 
+    	                        //console.log(i);
+    	                        //console.log(x4(data[i].Title));
+    	                        return x4(i) ; } )
     .attr("y", function (d) { return  y4_num_pages(d.Number_of_Pages); } )
     .attr("height", function (d) { return y4_num_pages(0) - y4_num_pages(d.Number_of_Pages); } )
-    .attr("width",  4 * x4.bandwidth() )
+    .attr("width",   x4.bandwidth() )
     .style("fill", "darkgreen") //.style("fill", "teal") //#69b3a2
     .style("opacity", 0.65)
     .on("mouseover", function() {    	   
@@ -304,9 +314,11 @@ bars4.selectAll("rect")
       });
 
 
-bars4.append("g")    
+bars4.append("g")
+    .attr("class", "y")    
     .call(d3.axisLeft(y4_num_pages).ticks(4))    
     .append("text")
+    .attr("class", "y") 
     .attr("transform", "rotate(-90)")     
     .attr("dy", "0.91em")
     .attr("fill", "#000")
@@ -320,7 +332,105 @@ bars4.append("g")
     .style("fill", "black")
     .style("font-size", "12pt")
     .text("Books")
-    .attr("transform", `translate(${iwidth4 - 10}, ${-20})`);
+    .attr("transform", `translate(${iwidth4 + 8}, ${20})`);
+
+
+var sortBars = function() {
+    svg4.selectAll("rect.bars4")  
+       .sort(function(a, b) {   
+              //console.log(d3.ascending(a.Number_of_Pages, b.Number_of_Pages));  
+              return d3.ascending(parseInt(a.Number_of_Pages), parseInt(b.Number_of_Pages)); 
+              //return d3.descending(a.Number_of_Pages, b.Number_of_Pages);  
+              })      
+        .transition() 
+        .duration(1500)
+        .attr("x", function(d, i) {  
+        	      console.log(i);
+        	      console.log(d.Title);
+        	      console.log(x4(i));
+                  return x4(i);  
+               });
+};
+
+var sortBarsReverse = function() {
+    svg4.selectAll("rect.bars4")  
+       .sort(function(a, b) {                
+              return d3.descending(parseInt(a.Number_of_Pages), parseInt(b.Number_of_Pages));              
+              })      
+        .transition() 
+        .duration(1500)
+        .attr("x", function(d, i) {  
+        	      console.log(i);
+        	      console.log(d.Title);
+        	      console.log(x4(i));
+                  return x4(i);  
+               });
+};
+
+
+d3.selectAll(("input[name='sortorder']")).on("change", function(){
+	if (this.value === 'Ascending'){
+                   console.log(this.value);
+                   sortBars();
+          }
+     else if (this.value === 'Descending'){
+                   console.log(this.value);
+                   sortBarsReverse();
+          }    
+});
+
+d3.selectAll("p#rating")
+  .on("click", function() {
+    console.log("I am inside rating function!")
+    ratingBars();
+  });
+
+var ratingBars = function() {
+
+	console.log("before axis");
+ bars4.select("g.y") 
+	  .call(d3.axisLeft(y4_rating).ticks(4)) ;
+
+
+ bars4.select("text.y")	  
+	  .attr("transform", "rotate(-90)")     
+	  .attr("dy", "0.91em")
+	  .attr("fill", "#000")
+	  .text("Average Rating")
+	  .style("font-size", "12pt");
+
+console.log("After axis");
+
+    svg4.selectAll("rect.bars4")             
+        .transition() 
+        .duration(1500)
+        .attr("x", function(d, i) {  
+        	      // console.log(i);
+        	      // console.log(d.Title);
+        	      // console.log(x4(i));
+                  return x4(i);  
+               })
+       
+	    .attr("y", function (d) { return  y4_rating(d.Average_Rating); } )
+	    .attr("height", function (d) { return y4_rating(0) - y4_rating(d.Average_Rating); } )
+	    .attr("width",   x4.bandwidth() )
+	    .style("fill", "darkgreen") //.style("fill", "teal") //#69b3a2
+	    .style("opacity", 0.65)
+	    .on("mouseover", function() {    	   
+				d3.select(this)
+				  .style("fill", "red");
+				   })
+	    .on("mouseout", function() {
+					   d3.select(this)
+					   		.transition()
+					   		.duration(450)
+							.style("fill", "darkgreen");
+				   })
+	     .append("title")
+	     .text(function(d) { 
+	          return d.Average_Rating;   
+	      });
+	 };    
 
 
 
